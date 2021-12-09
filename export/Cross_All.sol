@@ -1,4 +1,4 @@
-pragma solidity ^0.5.17;
+pragma solidity 0.5.17;
 
 /**
  * @title Ownable
@@ -30,7 +30,7 @@ contract Ownable {
      * @dev Throws if called by any account other than the owner.
      */
     modifier onlyOwner() {
-        require(isOwner());
+        require(isOwner(), 'Ownable: caller is not the owner');
         _;
     }
 
@@ -66,7 +66,7 @@ contract Ownable {
      * @param newOwner The address to transfer ownership to.
      */
     function _transferOwnership(address newOwner) internal {
-        require(newOwner != address(0));
+        require(newOwner != address(0),'Ownable: _transferOwnership can not transfer ownership to zero address');
         emit OwnershipTransferred(_owner, newOwner);
         _owner = newOwner;
     }
@@ -723,6 +723,7 @@ contract CrossContract{
     uint256     private g_iNonce = 0;
 
     //events
+    event event_init(string name,address addr,address setter,address feeaddr);
     event event_nonce(uint256 nonce);
     event event_RangersSpeedUp(address fromAsset,bytes hash,address sender,uint256 fee);
     
@@ -739,7 +740,7 @@ contract CrossContract{
     //fallback
     function () external payable
     {
-        require(msg.value > 0);
+        require(msg.value > 0,'fallback require msg.value > 0');
         g_FeeAddr.transfer(msg.value);
         
         bytes memory txHash;
@@ -760,6 +761,7 @@ contract CrossContract{
         g_MutiSignContract = MutiSign(_addr);
         g_Setter = _setter;
         g_FeeAddr = _feeaddr;
+        emit event_init(_name,_addr,_setter,_feeaddr);
     }
     
     function getnonce() public
