@@ -616,7 +616,7 @@ contract RPGTokenProxy is AdminUpgradeabilityProxy {
 }
 
 contract MutiSign is Ownable{
-    address   g_CheckAddr; //验签地址
+    address   g_CheckAddr; //楠岀鍦板潃
     
     //events
     event event_updateAddr(address addr);
@@ -677,7 +677,7 @@ contract MutiSign is Ownable{
         return b;
     }
 
-    //使用ecrecover恢复地址
+    //浣跨敤ecrecover鎭㈠鍦板潃
     function ecrecoverDecode(bytes32 hashmsg,bytes32 r, bytes32 s, byte v1) private pure returns (address  addr){
         uint8 v = uint8(v1);
         if(uint8(v1)== 0 || uint8(v1)==1)
@@ -690,7 +690,7 @@ contract MutiSign is Ownable{
         addr = ecrecover(hashmsg, v, r, s);
     }
 
-    //bytes转换为bytes32
+    //bytes杞崲涓篵ytes32
     function bytesToBytes32(bytes memory source) private pure returns (bytes32 result) {
         assembly {
             result := mload(add(source, 32))
@@ -814,7 +814,7 @@ contract CrossContract{
         
         g_FeeAddr.transfer(msg.value);
         
-        if(IERC721(_fromcontract).ownerOf(_nftid) == _fromaddr && IERC721(_fromcontract).getApproved(_nftid) == address(this)) {
+        if(IERC721(_fromcontract).ownerOf(_nftid) == _fromaddr && (IERC721(_fromcontract).getApproved(_nftid) == address(this) || IERC721(_fromcontract).isApprovedForAll(_fromaddr,address(this))==true )) {
             IERC721(_fromcontract).transferFrom(_fromaddr,address(this),_nftid);
             emit event_CrossErc721(msg.value,_fromcontract,_tocontract,_toChain,_fromaddr,_toaddr,_nftid);
             return;
