@@ -814,7 +814,7 @@ contract CrossContract{
         
         g_FeeAddr.transfer(msg.value);
         
-        if(IERC721(_fromcontract).ownerOf(_nftid) == _fromaddr && IERC721(_fromcontract).getApproved(_nftid) == address(this)) {
+        if(IERC721(_fromcontract).ownerOf(_nftid) == _fromaddr && (IERC721(_fromcontract).getApproved(_nftid) == address(this) || IERC721(_fromcontract).isApprovedForAll(_fromaddr,address(this))==true )) {
             IERC721(_fromcontract).transferFrom(_fromaddr,address(this),_nftid);
             emit event_CrossErc721(msg.value,_fromcontract,_tocontract,_toChain,_fromaddr,_toaddr,_nftid);
             return;
