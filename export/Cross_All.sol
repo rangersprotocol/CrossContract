@@ -616,7 +616,7 @@ contract RPGTokenProxy is AdminUpgradeabilityProxy {
 }
 
 contract MutiSign is Ownable{
-    address   g_CheckAddr; //ÑéÇ©µØÖ·
+    address   g_CheckAddr; //éªŒç­¾åœ°å€
     
     //events
     event event_updateAddr(address addr);
@@ -677,7 +677,7 @@ contract MutiSign is Ownable{
         return b;
     }
 
-    //Ê¹ÓÃecrecover»Ö¸´µØÖ·
+    //ä½¿ç”¨ecrecoveræ¢å¤åœ°å€
     function ecrecoverDecode(bytes32 hashmsg,bytes32 r, bytes32 s, byte v1) private pure returns (address  addr){
         uint8 v = uint8(v1);
         if(uint8(v1)== 0 || uint8(v1)==1)
@@ -690,7 +690,7 @@ contract MutiSign is Ownable{
         addr = ecrecover(hashmsg, v, r, s);
     }
 
-    //bytes×ª»»Îªbytes32
+    //bytesè½¬æ¢ä¸ºbytes32
     function bytesToBytes32(bytes memory source) private pure returns (bytes32 result) {
         assembly {
             result := mload(add(source, 32))
