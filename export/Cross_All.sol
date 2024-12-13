@@ -1619,6 +1619,22 @@ contract CrossContract{
 
     function WithdrawErc721_CM(bytes32 nonce,string memory fromchainid,string memory frombridgecontract,string memory eventname,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256 _nftid,address _groupId,bytes calldata signs) external
     {
+        require(keccak256(bytes(fromchainid))==keccak256(bytes("9527"))   //rangers
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("2025"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("1"))        //eth
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("11155111"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("5003"))     //mantle
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("5000"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("137"))      //polygon
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("80002"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("97"))       //bsc
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("56"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("1001"))     //kaia
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("8217"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("59141"))    //linea
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("59144"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("2494104990")) //tron
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("728126428"))         ,'p2');
         require(g_Workedmap[nonce] == false                     ,'p1');
         require(_fromcontract != address(0)                     ,'p5');
         require(_tocontract != address(0)                       ,'p7');
@@ -1675,6 +1691,22 @@ contract CrossContract{
 
     function WithdrawErc721_CM_batch(bytes32 nonce,stmagic memory m,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256[] memory _nftids,address _groupId,bytes calldata signs) external
     {
+        require(keccak256(bytes(fromchainid))==keccak256(bytes("9527"))   //rangers
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("2025"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("1"))        //eth
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("11155111"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("5003"))     //mantle
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("5000"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("137"))      //polygon
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("80002"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("97"))       //bsc
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("56"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("1001"))     //kaia
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("8217"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("59141"))    //linea
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("59144"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("2494104990")) //tron
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("728126428"))         ,'p2');
         require(g_Workedmap[nonce] == false                     ,'p1');
         require(_fromcontract != address(0)                     ,'p3');
         require(_tocontract != address(0)                       ,'p5');
@@ -1759,6 +1791,22 @@ contract CrossContract{
     //function WithdrawErc1155(bytes32 nonce,stmagic memory m,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256[] memory _ids,uint256[] memory _values,address _groupId,bytes calldata signs) external
     function WithdrawErc1155_CM(bytes32 nonce,stmagic memory m,st1155withdraw memory w,uint256[] memory _ids,uint256[] memory _values,address _groupId,bytes calldata signs) external
     {
+        require(keccak256(bytes(fromchainid))==keccak256(bytes("9527"))   //rangers
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("2025"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("1"))        //eth
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("11155111"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("5003"))     //mantle
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("5000"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("137"))      //polygon
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("80002"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("97"))       //bsc
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("56"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("1001"))     //kaia
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("8217"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("59141"))    //linea
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("59144"))
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("2494104990")) //tron
+            ||keccak256(bytes(fromchainid))==keccak256(bytes("728126428"))         ,'p8');
         require(g_Workedmap[nonce] == false                     ,'p1');
         require(w.fromcontract != address(0)                    ,'p2');
         require(w.tocontract != address(0)                      ,'p3');
