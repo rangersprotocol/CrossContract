@@ -1087,12 +1087,6 @@ contract CrossContract{
     event event_withdrawErc20_CM2(          address from,uint256 fromchainId,bytes to,address user,uint256 amount);
     event event_withdrawErc20_Failed_CM2(   address from,uint256 fromchainId,bytes to,address user,uint256 amount);
     
-    // event e_dbg(address msg);
-    // event e_dbg(uint256 msg);
-    // event e_dbg(string msg);
-    // event e_dbg(bytes msg);
-    // event e_dbg(bytes32 msg);
-
     //fallback
     //function () external payable
     fallback () external
@@ -1166,144 +1160,7 @@ contract CrossContract{
         }
     }
 
-    // function speedUp(address fromAsset,bytes calldata txHash, uint256 fee) external payable {
-    //     if(fromAsset == address(0)) {
-    //         require(msg.value == fee,"speedUp insufficient fee num");
-    //         g_FeeAddr.transfer(msg.value);
-    //     }else{
-    //         IERC20(fromAsset).safeTransferFrom(msg.sender, g_FeeAddr, fee);
-    //     }
-        
-    //     emit event_RangersSpeedUp(fromAsset , txHash, msg.sender , fee);
-    // }
-    
-    ///do cross////////////////////////////////////////////////////////////////////////////
-    // function DoCrossErc20(address _fromcontract,address _tocontract,string calldata _toChain,address _fromaddr,address _toaddr,uint256 amount) payable external{
-    //     require(_fromcontract != address(0)                     ,'p1');
-    //     require(_tocontract != address(0)                       ,'p2');
-    //     require(bytes(_toChain).length != 0                     ,'p3');
-    //     //require(_fromaddr != address(0)                         ,'p4');
-    //     require(_toaddr != address(0)                           ,'p5');
-    //     require(amount > 0                                      ,'p6');
-    //     require(msg.value > 0                                   ,'no fee');
-    //     require(msg.sender == _fromaddr                         ,'p4');
-        
-    //     g_FeeAddr.transfer(msg.value);
-        
-    //     if(IERC20(_fromcontract).balanceOf(_fromaddr) >= amount && IERC20(_fromcontract).allowance(_fromaddr,address(this)) >= amount) {
-    //         IERC20(_fromcontract).safeTransferFrom(_fromaddr,address(this),amount);
-    //         emit event_CrossErc20(msg.value,_fromcontract,_tocontract,_toChain,_fromaddr,_toaddr,amount);
-    //         return;
-    //     }
-
-    //     emit event_CrossErc20_Failed(msg.value,_fromcontract,_tocontract,_toChain,_fromaddr,_toaddr,amount);
-    //     return;
-    // }
-    
-    // function DoCrossErc721(address _fromcontract,address _tocontract,string calldata _toChain,address _fromaddr,address _toaddr,uint256 _nftid) payable external{
-    //     require(_fromcontract != address(0)                     ,'p1');
-    //     require(_tocontract != address(0)                       ,'p2');
-    //     require(bytes(_toChain).length != 0                     ,'p3');
-    //     //require(_fromaddr != address(0)                         ,'p4 0');
-    //     require(_toaddr != address(0)                           ,'p5');
-    //     require(msg.value > 0                                   ,'no fee');
-    //     require(msg.sender == _fromaddr                         ,'p4');
-        
-    //     g_FeeAddr.transfer(msg.value);
-        
-    //     if(IERC721(_fromcontract).ownerOf(_nftid) == _fromaddr && (IERC721(_fromcontract).getApproved(_nftid) == address(this) || IERC721(_fromcontract).isApprovedForAll(_fromaddr,address(this))==true )) {
-    //         IERC721(_fromcontract).transferFrom(_fromaddr,address(this),_nftid);
-    //         emit event_CrossErc721(msg.value,_fromcontract,_tocontract,_toChain,_fromaddr,_toaddr,_nftid);
-    //         return;
-    //     }
-
-    //     emit event_CrossErc721_Failed(msg.value,_fromcontract,_tocontract,_toChain,_fromaddr,_toaddr,_nftid);
-    //     return;
-    // }
-    
-    
-    ///withdraw action////////////////////////////////////////////////////////////////////////////
-    // function WithdrawErc20(uint256 nonce,address _fromcontract,string calldata _fromchain,address _tocontract,address payable _addr,uint256 _amount,bytes calldata _signs) external
-    // {
-    //     require(g_iNonce+1 == nonce                             ,'nonce');
-    //     require(_fromcontract != address(0)                     ,'p2');
-    //     require(_tocontract != address(0)                       ,'p4');
-    //     //require(bytes(_fromchain).length != 0                   ,'p3 null');
-    //     require(keccak256(bytes(_fromchain))==keccak256(bytes(g_Name))	,'p3');
-    //     require(_addr != address(0)                             ,'p5');
-    //     require(_signs.length == 65                             ,'p7');
-
-    //     bytes memory str = abi.encodePacked(nonce,_fromcontract,_fromchain,_tocontract,_addr,_amount);
-    //     bytes32 hashmsg = keccak256(str);
-
-    //     if(!g_MutiSignContract.CheckWitness(hashmsg,_signs))
-    //     {
-    //         //revert("Withdraw CheckWitness failed");     //revert can make call failed ,but can't punish bad gays
-    //         return;
-    //     }
-        
-    //     g_iNonce++;
-    //     emit event_nonce(g_iNonce);
-        
-    //     if(IERC20(_fromcontract).balanceOf(address(this)) >= _amount) {
-    //         IERC20(_fromcontract).safeTransfer(_addr,_amount);
-    //         emit event_withdrawErc20(_fromcontract,_fromchain,_tocontract,_addr,_amount);
-    //         return;
-    //     }
-
-    //     emit event_withdrawErc20_Failed(_fromcontract,_fromchain,_tocontract,_addr,_amount);
-    //     return;
-    // }
-
-    // function TryownerOf(address _fromcontract,uint256 _nftid) view external returns(bool){
-    //     if(IERC721(_fromcontract).ownerOf(_nftid) == address(this)){
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
-    // function WithdrawErc721(uint256 nonce,address _fromcontract,string calldata _fromchain,address _tocontract,address payable _addr,uint256 _nftid,bytes calldata signs) external
-    // {
-    //     require(g_iNonce+1 == nonce                             ,'nonce');
-    //     require(_fromcontract != address(0)                     ,'p2');
-    //     require(_tocontract != address(0)                       ,'p4');
-    //     //require(bytes(_fromchain).length != 0                   ,'_fromchain null');
-    //     require(keccak256(bytes(_fromchain))==keccak256(bytes(g_Name))	,'p3');
-    //     require(_addr != address(0)                             ,'_addr');
-    //     require(signs.length == 65                              ,'p7');
-
-    //     bytes memory str = abi.encodePacked(nonce,_fromcontract,_fromchain,_tocontract,_addr,_nftid);
-    //     bytes32 hashmsg = keccak256(str);
-
-    //     if(!g_MutiSignContract.CheckWitness(hashmsg,signs))
-    //     {
-    //         //revert("Withdraw CheckWitness failed");     //revert can make call failed ,but can't punish bad gays
-    //         return;
-    //     }
-        
-    //     g_iNonce++;
-    //     emit event_nonce(g_iNonce);
-        
-    //     bool ok;
-    //     try g_CrossEx.TryownerOf(_fromcontract,_nftid,address(this)) returns(bool v) {    
-    //         ok = v;
-    //     }catch{
-    //         ok = false;
-    //     }
-    //     if(ok == true){
-    //         IERC721(_fromcontract).transferFrom(address(this),_addr,_nftid);
-    //         emit event_withdrawErc721(_fromcontract,_fromchain,_tocontract,_addr,_nftid);
-    //         return;
-    //     }else{
-    //         IERC721(_fromcontract).mint(_addr,_nftid);
-    //         emit event_withdrawErc721(_fromcontract,_fromchain,_tocontract,_addr,_nftid);
-    //         return;
-    //     }
-        
-    //     //???emit event_withdrawErc721_Failed(_fromcontract,_fromchain,_tocontract,_addr,_nftid);
-    // }
-
-		///CM////////////////////////////////////////////////////////////////////////////
+	///CM////////////////////////////////////////////////////////////////////////////
     function DoCrossErc20_CM(address _fromcontract,address _tocontract,uint256 _toChainId,address _fromaddr,address _toaddr,uint256 amount) payable external{
         require(_fromcontract != address(0)                     ,'p1');
         require(_tocontract != address(0)                       ,'p2');
@@ -1317,17 +1174,6 @@ contract CrossContract{
         g_FeeAddr.transfer(msg.value);
         
         uint256 am = g_CrossEx.FormatDecimal(amount,IERC20(_fromcontract).decimals(),18);
-        // uint256 am = amount;
-        // uint8   dec = IERC20(_fromcontract).decimals();
-        // if(dec < 18){
-        //     for(uint256 i = dec ; i < 18; i++ ){
-        //         am = am*10;
-        //     }
-        // }else if(dec > 18){
-        //     for(uint256 i = 18 ; i < dec; i++ ){
-        //         am = am/10;
-        //     }
-        // }
 
         if(IERC20(_fromcontract).balanceOf(_fromaddr) >= amount && IERC20(_fromcontract).allowance(_fromaddr,address(this)) >= amount) {
             IERC20(_fromcontract).safeTransferFrom(_fromaddr,address(this),amount);
@@ -1359,26 +1205,8 @@ contract CrossContract{
         //uint8   dec = IERC20(_fromcontract).decimals();
         if(_toChainId == 115998 || _toChainId == 115999){
             am = g_CrossEx.FormatDecimal(amount,IERC20(_fromcontract).decimals(),9);                        
-            // if(dec < 9){
-            //     for(uint256 i = dec ; i < 9; i++ ){
-            //         am = am*10;
-            //     }
-            // }else if(dec > 9){
-            //     for(uint256 i = 9 ; i < dec; i++ ){
-            //         am = am/10;
-            //     }
-            // }
         }else{
             am = g_CrossEx.FormatDecimal(amount,IERC20(_fromcontract).decimals(),18);
-            // if(dec < 18){
-            //     for(uint256 i = dec ; i < 18; i++ ){
-            //         am = am*10;
-            //     }
-            // }else if(dec > 18){
-            //     for(uint256 i = 18 ; i < dec; i++ ){
-            //         am = am/10;
-            //     }
-            // }
         }
 
         if(IERC20(_fromcontract).balanceOf(_fromaddr) >= amount && IERC20(_fromcontract).allowance(_fromaddr,address(this)) >= amount) {
@@ -1438,40 +1266,6 @@ contract CrossContract{
         
         return;
     }
-    
-    ///CM withdraw action////////////////////////////////////////////////////////////////////////////
-    // function verifymsg(bytes32 hashmsg,bytes memory signs,address groupId) private view returns(bool){
-    //     (bool result,bool alive) = g_MutiSignContract_CM.CheckWitness(hashmsg,signs,groupId);
-    //     return (result == true && alive == true);
-    // }
-
-    // function DoWithdrawErc20Transfer(uint256 dec,bytes32 nonce,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256 _amount) internal {
-    //     uint256 am = g_CrossEx.FormatDecimal(_amount, dec , IERC20(_fromcontract).decimals());
-    //     //uint256 am = _amount;
-    //     // if(IERC20(_fromcontract).decimals() < dec){
-    //     //     for(uint256 i = IERC20(_fromcontract).decimals() ; i < dec; i++ ){
-    //     //         am = am/10;
-    //     //     }
-    //     // }else if(IERC20(_fromcontract).decimals() > dec){
-    //     //     for(uint256 i = dec ; i < IERC20(_fromcontract).decimals(); i++ ){
-    //     //         am = am*10;
-    //     //     }
-    //     // }
-        
-    //     if(g_RPG != address(0) && _fromcontract == g_RPG){
-    //         IERC20(g_RPG).mint(address(this),am);
-    //     }
-
-    //     if(IERC20(_fromcontract).balanceOf(address(this)) >= am) {
-    //         IERC20(_fromcontract).safeTransfer(_addr,am);
-    //         g_Workedmap[nonce] = true;
-    //         emit event_withdrawErc20_CM(_fromcontract,_fromchainId,_tocontract,_addr,am);
-    //         return;
-    //     }
-
-    //     emit event_withdrawErc20_Failed_CM(_fromcontract,_fromchainId,_tocontract,_addr,am);
-    //     return;
-    // }
 
     function WithdrawErc20_CM(bytes32 nonce,string memory fromchainid,string memory frombridgecontract,string memory eventname,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256 _amount,address _groupId,bytes calldata _signs) external
     {
@@ -1494,7 +1288,6 @@ contract CrossContract{
         }
 
         am = g_CrossEx.FormatDecimal(_amount, 18 , IERC20(_fromcontract).decimals());
-        //if(g_RPG != address(0) && _fromcontract == g_RPG){
         if(IsInPoolfts(_fromcontract) == false){
             IERC20(_fromcontract).mint(address(this),am);
         }
@@ -1508,37 +1301,8 @@ contract CrossContract{
 
         emit event_withdrawErc20_Failed_CM(_fromcontract,_fromchainId,_tocontract,_addr,am);
 
-        //DoWithdrawErc20Transfer(18,nonce,_fromcontract,_fromchainId,_tocontract,_addr,_amount);
         return;
     }
-
-    // function DoWithdrawErc20Transfer2(uint256 dec,bytes32 nonce,address _fromcontract,uint256 _fromchainId,bytes memory _tocontract,address payable _addr,uint256 _amount) internal {
-    //     uint256 am = g_CrossEx.FormatDecimal(_amount, dec , IERC20(_fromcontract).decimals());
-    //     // uint256 am = _amount;
-    //     // if(IERC20(_fromcontract).decimals() < dec){
-    //     //     for(uint256 i = IERC20(_fromcontract).decimals() ; i < dec; i++ ){
-    //     //         am = am/10;
-    //     //     }
-    //     // }else if(IERC20(_fromcontract).decimals() > dec){
-    //     //     for(uint256 i = dec ; i < IERC20(_fromcontract).decimals(); i++ ){
-    //     //         am = am*10;
-    //     //     }
-    //     // }
-        
-    //     if(g_RPG != address(0) && _fromcontract == g_RPG){
-    //         IERC20(g_RPG).mint(address(this),am);
-    //     }
-
-    //     if(IERC20(_fromcontract).balanceOf(address(this)) >= am) {
-    //         IERC20(_fromcontract).safeTransfer(_addr,am);
-    //         g_Workedmap[nonce] = true;
-    //         emit event_withdrawErc20_CM2(_fromcontract,_fromchainId,_tocontract,_addr,am);
-    //         return;
-    //     }
-
-    //     emit event_withdrawErc20_Failed_CM2(_fromcontract,_fromchainId,_tocontract,_addr,am);
-    //     return;
-    // }
 
     function WithdrawErc20_CM2(bytes32 nonce,string memory fromchainid,string memory frombridgecontract,string memory eventname,address _fromcontract,uint256 _fromchainId,bytes memory _tocontract,address payable _addr,uint256 _amount,address _groupId,bytes calldata _signs) external
     {
@@ -1559,19 +1323,11 @@ contract CrossContract{
         require(am==_fromchainId                                ,'p6');
         require(g_EventConfigContract.IsValidEvent(g_BusiName,fromchainid,frombridgecontract,eventname)==true,'IsValidEvent err');
 
-        // bytes memory str = abi.encodePacked(nonce,_fromcontract,_fromchainId,_tocontract,_addr,_amount,_groupId);
-        // bytes32 hashmsg = keccak256(str);
-
-        // if(verifymsg(hashmsg,_signs,_groupId) == false)
-        // {
-        //     return;
-        // }
         if(g_CrossEx.VerifyCrossErc20Sign2(nonce,fromchainid,frombridgecontract,eventname,_fromcontract,_fromchainId,_tocontract,_addr,_amount,_groupId,_signs) == false){
             return;
         }
 
         am = g_CrossEx.FormatDecimal(_amount, 9 , IERC20(_fromcontract).decimals());
-        //if(g_RPG != address(0) && _fromcontract == g_RPG){
         if(IsInPoolfts(_fromcontract) == false){
             IERC20(_fromcontract).mint(address(this),am);
         }
@@ -1584,23 +1340,8 @@ contract CrossContract{
         }
 
         emit event_withdrawErc20_Failed_CM2(_fromcontract,_fromchainId,_tocontract,_addr,am);
-
-        //DoWithdrawErc20Transfer2(9,nonce,_fromcontract,_fromchainId,_tocontract,_addr,_amount);
         return;
     }
-
-    // function VerifyCrossErc721Sign(bytes32 nonce,string memory fromchainid,string memory frombridgecontract,string memory eventname,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256 _nftid,address _groupId,bytes calldata signs) private view returns(bool){
-    //     bytes memory str = abi.encodePacked(fromchainid,frombridgecontract,eventname);
-    //     bytes32 magic = keccak256(str);
-
-    //     str = abi.encodePacked(nonce,_fromcontract,_fromchainId,_tocontract,_addr,_nftid,_groupId,magic);
-    //     bytes32 hashmsg = keccak256(str);
-
-    //     if(verifymsg(hashmsg,signs,_groupId) == false){
-    //         return false;
-    //     }
-    //     return true;
-    // }
 
     function WithdrawErc721_CM(bytes32 nonce,string memory fromchainid,string memory frombridgecontract,string memory eventname,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256 _nftid,address _groupId,bytes calldata signs) external
     {
@@ -1619,20 +1360,12 @@ contract CrossContract{
             require(chainId==_fromchainId                           ,'p6');
             require(g_EventConfigContract.IsValidEvent(g_BusiName,fromchainid,frombridgecontract,eventname)==true,'IsValidEvent err');
         }
-        // bytes memory str = abi.encodePacked(nonce,_fromcontract,_fromchainId,_tocontract,_addr,_nftid,_groupId);
-        // bytes32 hashmsg = keccak256(str);
-        // if(verifymsg(hashmsg,signs,_groupId) == false)
-        // {
-        //     //revert("Withdraw CheckWitness failed");     //revert can make call failed ,but can't punish bad gays
-        //     return;
-        // }
+
         if(g_CrossEx.VerifyCrossErc721Sign(nonce,fromchainid,frombridgecontract,eventname,_fromcontract,_fromchainId,_tocontract,_addr,_nftid,_groupId,signs) == false){
             return;
         }
         
-        // bool ok;
         try g_CrossEx.TryownerOf(_fromcontract,_nftid,address(this)) returns(bool v) {    
-            // ok = v;
 	        if(v == true){
 	            IERC721(_fromcontract).transferFrom(address(this),_addr,_nftid);
 	            g_Workedmap[nonce] = true;
@@ -1645,19 +1378,7 @@ contract CrossContract{
             emit event_withdrawErc721_CM(_fromcontract,_fromchainId,_tocontract,_addr,_nftid);
             return;
         }
-        // if(ok == true){
-        //     IERC721(_fromcontract).transferFrom(address(this),_addr,_nftid);
-        //     g_Workedmap[nonce] = true;
-        //     emit event_withdrawErc721_CM(_fromcontract,_fromchainId,_tocontract,_addr,_nftid);
-        //     return;
-        // }else{
-        //     IERC721(_fromcontract).mint(_addr,_nftid);
-        //     g_Workedmap[nonce] = true;
-        //     emit event_withdrawErc721_CM(_fromcontract,_fromchainId,_tocontract,_addr,_nftid);
-        //     return;
-        // }
 
-        //???emit event_withdrawErc721_Failed_CM(_fromcontract,_fromchainId,_tocontract,_addr,_nftid);
     }
 
     function WithdrawErc721_CM_batch(bytes32 nonce,stmagic memory m,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256[] memory _nftids,address _groupId,bytes calldata signs) external
@@ -1677,25 +1398,14 @@ contract CrossContract{
         require(g_EventConfigContract.IsValidEvent(g_BusiName,m.fromchainid,m.frombridgecontract,m.eventname)==true,'IsValidEvent err');
 
         require(g_CrossEx.VerifyCrossErc721Sign_batch(nonce,m.fromchainid,m.frombridgecontract,m.eventname,_fromcontract,_fromchainId,_tocontract,_addr,_nftids,_groupId,signs) == true,'verify failed');
-        // if (g_CrossEx.VerifyCrossErc721Sign_batch(nonce,m.fromchainid,m.frombridgecontract,m.eventname,_fromcontract,_fromchainId,_tocontract,_addr,_nftids,_groupId,signs) == false){
-        //     return ;
-        // }
         for(uint256 i = 0 ; i < _nftids.length; i++){
-            //bool ok;
-            try g_CrossEx.TryownerOf(_fromcontract,_nftids[i],address(this)) returns(bool v) {    
-                //ok = v;
+            try g_CrossEx.TryownerOf(_fromcontract,_nftids[i],address(this)) returns(bool v) {
                 if(v == true){
                 	IERC721(_fromcontract).transferFrom(address(this),_addr,_nftids[i]);
                 }
             }catch{
-                //ok = false;
                 IERC721(_fromcontract).mint(_addr,_nftids[i]);
             }
-            //if(ok == true){
-            //    IERC721(_fromcontract).transferFrom(address(this),_addr,_nftids[i]);
-            //}else{
-            //    IERC721(_fromcontract).mint(_addr,_nftids[i]);
-            //}
             require(g_CrossEx.TryownerOf(_fromcontract, _nftids[i], _addr) == true	,'p10');
             emit event_withdrawErc721_CM(_fromcontract,_fromchainId,_tocontract,_addr,_nftids[i]);
         }
@@ -1744,26 +1454,10 @@ contract CrossContract{
         
         return;
     }
-    //function WithdrawErc1155(bytes32 nonce,stmagic memory m,address _fromcontract,uint256 _fromchainId,address _tocontract,address payable _addr,uint256[] memory _ids,uint256[] memory _values,address _groupId,bytes calldata signs) external
+
     function WithdrawErc1155_CM(bytes32 nonce,stmagic memory m,st1155withdraw memory w,uint256[] memory _ids,uint256[] memory _values,address _groupId,bytes calldata signs) external
     {
         g_CrossEx.fromchainidchecketh(m.fromchainid);
-        require(keccak256(bytes(m.fromchainid))==keccak256(bytes("9527"))   //rangers
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("2025"))
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("1"))        //eth
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("11155111"))
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("5003"))     //mantle
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("5000"))
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("137"))      //polygon
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("80002"))
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("97"))       //bsc
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("56"))
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("1001"))     //kaia
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("8217"))
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("59141"))    //linea
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("59144"))
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("2494104990")) //tron
-            ||keccak256(bytes(m.fromchainid))==keccak256(bytes("728126428"))         ,'p8');
         require(g_Workedmap[nonce] == false                     ,'p1');
         require(w.fromcontract != address(0)                    ,'p2');
         require(w.tocontract != address(0)                      ,'p3');
@@ -1776,17 +1470,9 @@ contract CrossContract{
         }
         require(chainId==w.fromchainId                          ,'p5');
         require(g_EventConfigContract.IsValidEvent(g_BusiName,m.fromchainid,m.frombridgecontract,m.eventname)==true,'IsValidEvent err');
-
         require(g_CrossEx._WithdrawErc1155_CM(nonce,m,w,_ids,_values,_groupId,signs) == true,'p8');
-
-        // require(g_CrossEx.VerifyCrossErc1155Sign(nonce,m.fromchainid,m.frombridgecontract,m.eventname,w,_ids,_values,_groupId,signs) == true,'verify failed');
-        // for(uint256 i = 0 ; i < _ids.length; i++){
-        //     require(ERC1155(w.fromcontract).balanceOf(address(this),_ids[i]) >= _values[i],'balanceOf err');
-        // }
         
-        //ERC1155(w.fromcontract).setApprovalForAll(w.addr,true);
         ERC1155(w.fromcontract).safeBatchTransferFrom(address(this),w.addr,_ids,_values,hex"");
-        //ERC1155(w.fromcontract).setApprovalForAll(w.addr,false);
         emit event_withdrawErc1155_CM(w.fromcontract,w.fromchainId,w.tocontract,w.addr,_ids,_values);
         
         g_Workedmap[nonce] = true;
@@ -1794,92 +1480,6 @@ contract CrossContract{
     }
     ///1155>>>//////////////////////////////////////////////
 
-    //////////////////////////////////////////////////////////////////////////////
-    //event Event_ChangeSetter(address addr);
-    //event Event_ChangeFeeAddr(address addr);
-    //event Event_ChangeMutisign(address addr);
-    //event Event_ChangeMutisign_CM(address addr);
-    //event Event_ChangeBusiName(string name);
-    event Event_SetEventCfg(address addr);
-    event Event_SetCrossEx(address addr);
-
-    // function ChangeSetter(address _addr) external {
-    //     require(_addr != address(0)     ,'p1');
-    //     require(msg.sender == g_Setter  ,'p2');
-
-    //     g_Setter = _addr;
-    //     emit Event_ChangeSetter(_addr);
-    // }
-
-    // function ChangeFeeAddr(address payable _addr) external {
-    //     require(_addr != address(0)     ,'p1');
-    //     require(msg.sender == g_Setter  ,'p2');
-
-    //     g_FeeAddr = _addr;
-    //     emit Event_ChangeFeeAddr(_addr);
-    // }
-
-    // function ChangeMutisign(address payable _addr) external {
-    //     require(_addr != address(0)     ,'ChangeMutisign para err');
-    //     require(msg.sender == g_Setter  ,'ChangeMutisign only can call by setter');
-
-    //     g_MutiSignContract = (MutiSign)(_addr);
-    //     emit Event_ChangeMutisign(_addr);
-    // }
-    
-    // function ChangeMutisign_CM(address payable _addr) external {
-    //     require(_addr != address(0)     ,'ChangeMutisign para err');
-    //     require(msg.sender == g_Setter  ,'ChangeMutisign only can call by setter');
-
-    //     g_MutiSignContract_CM = (MutiSign_CM)(_addr);
-    //     emit Event_ChangeMutisign_CM(_addr);
-    // }
-
-    // function SetRPG(address _addr) external {
-    //     require(_addr != address(0)     ,'SetRPG para err');
-    //     require(msg.sender == g_Setter  ,'SetRPG only can call by setter');
-
-    //     g_RPG = _addr;
-    // }
-
-    // function SetBusiName(string memory name) external {
-    //     require(bytes(name).length > 0  ,'SetBusiName name err');
-    //     require(msg.sender == g_Setter  ,'SetBusiName only can call by setter');
-
-    //     g_BusiName = name;
-    //     emit Event_ChangeBusiName(name);
-    // }
-
-    // function SetEventCfg(address payable _addr) external {
-    //     require(_addr != address(0)     ,'p1');
-    //     require(msg.sender == g_Setter  ,'p2');
-
-    //     g_EventConfigContract = EventConfig(_addr);
-    //     emit Event_SetEventCfg(_addr);
-    // }
-
-    // function SetCrossEx(address _addr) external {
-    //     require(_addr != address(0)     ,'p1');
-    //     require(msg.sender == g_Setter  ,'p2');
-
-    //     g_CrossEx = CrossContractEx(_addr);
-    //     emit Event_SetCrossEx(_addr);
-    // }
-
-    // function TransRPG(address oldRpg,address BurnContract) external payable{
-    //     require(msg.sender == g_Setter  ,'p1');
-
-    //     uint256 amount = IERC20(oldRpg).balanceOf(address(this));
-        
-    //     bytes4 selectorapprove = bytes4(keccak256("approve(address,uint256)"));
-    //     (bool success1,bytes memory retdata1) = oldRpg.call(abi.encodeWithSelector(selectorapprove,BurnContract,amount));
-    //     require(success1,'p2');
-
-    //     bytes4 selector = bytes4(keccak256("MoveAndBurn(address,address,uint256)"));
-    //     (bool success,bytes memory retdata) = BurnContract.call.value(5000000000000000)(abi.encodeWithSelector(selector,address(this),address(this),amount));
-    //     require(success,'p3');
-    // }
-    
 }
 
 struct stmagic {
@@ -1910,13 +1510,6 @@ contract CrossContractEx is Ownable{
         g_Parent = parent;
         g_MutiSignContract_CM = MutiSign_CM(ms_cm);
     }
-
-    //function ChangeMutisign_CM(address payable _addr) external onlyOwner{
-    //    require(_addr != address(0)     ,'ChangeMutisign para err');
-    //
-    //    g_MutiSignContract_CM = (MutiSign_CM)(_addr);
-    //    emit Event_ChangeMutisign_CM(_addr);
-    //}
 
     function TryownerOf(address _fromcontract,uint256 _nftid,address owneraddr) view external returns(bool){
         require(msg.sender == g_Parent,'err sender');
@@ -2072,22 +1665,6 @@ contract CrossContractEx is Ownable{
             ||comparestring(fromchainid,"59144")
             ||comparestring(fromchainid,"2494104990")
             ||comparestring(fromchainid,"728126428")    ,'fromchainid not support');
-        // require(keccak256(bytes(fromchainid))==keccak256(bytes("9527"))   //rangers
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("2025"))
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("1"))        //eth
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("11155111"))
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("5003"))     //mantle
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("5000"))
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("137"))      //polygon
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("80002"))
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("97"))       //bsc
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("56"))
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("1001"))     //kaia
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("8217"))
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("59141"))    //linea
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("59144"))
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("2494104990")) //tron
-        //     ||keccak256(bytes(fromchainid))==keccak256(bytes("728126428"))         ,'p2');
     }
 }
 
