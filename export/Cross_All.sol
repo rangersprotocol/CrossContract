@@ -9,6 +9,7 @@ pragma experimental ABIEncoderV2;
  */
 contract Ownable {
     address private _owner;
+    uint256[10] __gap;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
@@ -1437,18 +1438,7 @@ contract CrossContract{
         g_FeeAddr.transfer(msg.value);
 
         require(g_CrossEx._DoCross1155_CM(msg.sender,_fromcontract,_fromaddr,_ids,_values) == true,'p6');
-
-        bool ok = false;
-        if(ERC1155(_fromcontract).isApprovedForAll(_fromaddr,address(this))==true){
-            ok = true;
-        }else{
-		        for(uint256 i = 0 ; i < _ids.length ; i++) {
-		            require(ERC1155(_fromcontract).balanceOf(_fromaddr,_ids[i]) >= _values[i],'balanceOf err');
-		        }
-		        ok = true;
-        }
         
-        require(ok == true,'p6');
         ERC1155(_fromcontract).safeBatchTransferFrom(_fromaddr,address(this),_ids,_values,hex"");
         event_CrossErc1155_CM(msg.value,_fromcontract,_tocontract,_toChainId,_fromaddr,_toaddr,_ids,_values);
         
@@ -1500,6 +1490,10 @@ contract CrossContractEx is Ownable{
     MutiSign_CM public g_MutiSignContract_CM;
 
     event Event_ChangeMutisign_CM(address addr);
+    
+    receive() payable external {
+    	revert(false,'do not receive coin');
+    }
 
     function init(address owner,address parent,address ms_cm) external{
         require(owner != address(0) ,'owner err');
@@ -1622,9 +1616,9 @@ contract CrossContractEx is Ownable{
         for(uint256 i = 0 ; i < _ids.length ; i++) {
             require(ERC1155(_fromcontract).balanceOf(_fromaddr,_ids[i]) >= _values[i],'balanceOf err');
         }
-        if(sender == _fromaddr){
-            return true;
-        }
+        //if(sender == _fromaddr){
+        //    return true;
+        //}
         require(ERC1155(_fromcontract).isApprovedForAll(_fromaddr,msg.sender)==true,'isApprovedForAll err');
 
         return true;
