@@ -1103,7 +1103,7 @@ contract CrossContract{
         emit event_RangersSpeedUp(address(0) , txHash , msg.sender , msg.value);
     }
     
-    function init(string memory _name,address payable _addr,address _setter,address payable _feeaddr,address payable _rpg,address _muti_cm,address ec,address ex) public {
+    function init(string memory _name,address payable _addr,address _setter,address payable _feeaddr,address payable _rpg,address _muti_cm,address ec,address payable ex) public {
         require(bytes(_name).length > 0                ,'must has name');
         require(_addr != address(0)                    ,'_addr');
         require(_setter != address(0)                  ,'_setter');
@@ -1491,7 +1491,7 @@ contract CrossContractEx is Ownable{
     event Event_ChangeMutisign_CM(address addr);
     
     receive() payable external {
-    	revert(false,'do not receive coin');
+    	revert();
     }
 
     function init(address owner,address parent,address ms_cm) external{
