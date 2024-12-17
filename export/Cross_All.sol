@@ -9,7 +9,6 @@ pragma experimental ABIEncoderV2;
  */
 contract Ownable {
     address private _owner;
-    uint256[10] __gap;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
